@@ -1,14 +1,15 @@
 package br.com.forca.main;
 
 import br.com.forca.controller.ControladorJogo;
+import br.com.forca.view.ConsoleView;
 
 public class Forca {
     public static void main(String[] args) {
-        ControladorJogo jogo = new ControladorJogo();
         try {
+            ControladorJogo jogo = new ControladorJogo(new ConsoleView());
             jogo.iniciar();
         } catch (Exception e) {
-            System.err.println("Erro inesperado: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

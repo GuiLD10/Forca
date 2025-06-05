@@ -1,6 +1,11 @@
 package br.com.forca.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import br.com.forca.observer.TracinhosObserver;
+
 
 public class Tracinhos implements Cloneable {
     private final char[] texto;
@@ -13,11 +18,25 @@ public class Tracinhos implements Cloneable {
         Arrays.fill(this.texto, '_');
     }
 
-    public void revele(int posicao, char letra) throws Exception {
-        if (posicao < 0 || posicao >= this.texto.length)
-            throw new Exception("Posição inválida!");
+    private final List<TracinhosObserver> observadores = new ArrayList<>();
 
-        this.texto[posicao] = letra;
+    public void adicionarObserver(TracinhosObserver obs) {
+        if (obs != null && !observadores.contains(obs))
+        observadores.add(obs);
+    }
+
+    private void notificarObservadores() {
+    for (TracinhosObserver obs : observadores) {
+        obs.atualizar(this);
+    }
+    }
+
+    public void revele(int posicao, char letra) throws Exception {
+    if (posicao < 0 || posicao >= this.texto.length)
+        throw new Exception("Posição inválida!");
+    
+    this.texto[posicao] = letra;
+    notificarObservadores();
     }
 
     public boolean isAindaComTracinhos() {

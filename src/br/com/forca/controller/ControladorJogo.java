@@ -1,16 +1,21 @@
 package br.com.forca.controller;
 
 import br.com.forca.model.*;
-import br.com.forca.view.ConsoleView;
+import br.com.forca.view.*;
 
 public class ControladorJogo {
 
-    private final ConsoleView view = new ConsoleView();
+    private final ViewStrategy view;
+
+    public ControladorJogo(ViewStrategy view) {
+        this.view = view;
+    }
 
     public void iniciar() throws Exception {
         do {
             Palavra palavra = BancoDePalavras.getPalavraSorteada();
             Tracinhos tracinhos = new Tracinhos(palavra.getTamanho());
+            tracinhos.adicionarObserver(new ConsoleTracinhosObserver());
             ControladorDeLetrasJaDigitadas letrasDigitadas = new ControladorDeLetrasJaDigitadas();
             ControladorDeErros erros = new ControladorDeErros((int) (palavra.getTamanho() * 0.6));
 
