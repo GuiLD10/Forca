@@ -1,4 +1,4 @@
-Como executar o projeto
+Como executar o projeto:
 
 Pré-requisitos:
 Java JDK 8 ou superior
@@ -6,7 +6,7 @@ Java JDK 8 ou superior
 Uma IDE como IntelliJ IDEA ou Visual Studio Code.
 
 
-Executando
+Executando:
 
 Clone este repositório
 
